@@ -20,13 +20,13 @@ class BillingTest {
 	
 	@Test
 	void whenProductIsFoodNotImportedThenTaxIsZero() {
-		Product myProduct = new Product("pizza", 10.0, false, "Food");
+		Product myProduct = new Product("boite de chocolats", 10.0, false, "Food");
 		assertEquals(0, new TaxCalculatorClient().calculateTax(myProduct));
 	}
 	
 	@Test
 	void whenProductIsMedicineNotImportedThenTaxIsZero() {
-		Product myProduct = new Product("doliprane", 10.0, false, "Medicine");
+		Product myProduct = new Product("boite de pilule contre la migraine", 10.0, false, "Medicine");
 		assertEquals(0, new TaxCalculatorClient().calculateTax(myProduct));
 	}
 	
@@ -38,13 +38,13 @@ class BillingTest {
 	
 	@Test
 	void whenProductIsImportedFoodThenTaxIsFivePercent() {
-		Product myProduct = new Product("pizza", 10.0, true, "Food");
+		Product myProduct = new Product("boite de chocolats", 10.0, true, "Food");
 		assertEquals(0.05 * myProduct.getPrice(), new TaxCalculatorClient().calculateTax(myProduct));
 	}
 	
 	@Test
 	void whenProductIsImportedMedicineThenTaxIsFivePercent() {
-		Product myProduct = new Product("doliprane", 10.0, true, "Medicine");
+		Product myProduct = new Product("boite de pilule contre la migraine", 10.0, true, "Medicine");
 		assertEquals(0.05 * myProduct.getPrice(), new TaxCalculatorClient().calculateTax(myProduct));
 	}
 	
