@@ -8,16 +8,20 @@ public class TaxCalculatorClient {
 	
 	TaxSystem getAppropriateTaxSystem(Product myProduct) {
 		
+		if (productHasNoVATAndIsImported(myProduct)) {
+			return TaxSystem.IMPORTED_NON_TAXABLE;
+		}
 		if(productHasNoVAT(myProduct)) {
-			if(productIsImported(myProduct)) {
-				return TaxSystem.IMPORTED_NON_TAXABLE;
-			}
-			return TaxSystem.NON_TAXABLE;
+			return TaxSystem.NON_TAXABLE;			
 		}
 		if(productIsImported(myProduct)) {
 			return TaxSystem.IMPORTED_TAXABLE;
 		}
 		return TaxSystem.TAXABLE;
+	}
+
+	private boolean productHasNoVATAndIsImported(Product myProduct) {
+		return productHasNoVAT(myProduct) && productIsImported(myProduct);
 	}
 
 	private Boolean productIsImported(Product myProduct) {
