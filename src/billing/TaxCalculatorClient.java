@@ -2,6 +2,7 @@ package billing;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
 
 public class TaxCalculatorClient {
 
@@ -32,12 +33,22 @@ public class TaxCalculatorClient {
 //		
 //		return initialTax;
 //	}
-	
-	public double calculateRoundedTax(Product product) {
+
+	public double calculateRoundedTaxForAProduct(Product product) {
 		double initialTax = getAppropriateTaxSystem(product).getTax(product);
 		double roundedTax = Math.ceil(initialTax / 0.05) / 20;
-		
+
 		return roundedTax;
+	}
+	
+	public double calculateRoundedTaxForAListOfProducts(List<Product> listOfProducts) {
+		double totalTax = 0;
+		for (Product product : listOfProducts) {
+			totalTax = totalTax + calculateTax(product);
+		}
+		double roundedTotalTax = Math.ceil(totalTax / 0.05) / 20;
+		return roundedTotalTax;
+		
 	}
 
 	TaxSystem getAppropriateTaxSystem(Product myProduct) {
@@ -86,7 +97,7 @@ public class TaxCalculatorClient {
 	private boolean divisibleBy5(int decimalPart) {
 		return decimalPart % 5 == 0;
 	}
-	
+
 	private boolean truncatedTaxIsInferiorToInitialTax(double truncatedTax, double initialTax) {
 		return truncatedTax < initialTax;
 	}
