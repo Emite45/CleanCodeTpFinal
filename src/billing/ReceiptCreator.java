@@ -16,7 +16,7 @@ public class ReceiptCreator {
 	}
 
 	public double calculateTotalTaxes(List<Product> listOfProducts) {
-		return RoundDoubleToTwoSignificantDigits(new TaxCalculatorClient().getTax(listOfProducts));
+		return RoundDoubleToTwoSignificantDigits(new TaxCalculator().getTax(listOfProducts));
 	}
 	
 	public double calculateTotalPriceWithoutTaxes(List<Product> listOfProducts) {
@@ -37,7 +37,7 @@ public class ReceiptCreator {
 
 	private double calculateTotalPriceWithTaxes(List<Product> listOfProducts) {
 		double totalPriceWithTaxes = getTotalPriceWithoutTaxes(listOfProducts)
-				+ new TaxCalculatorClient().getTax(listOfProducts);
+				+ new TaxCalculator().getTax(listOfProducts);
 		return totalPriceWithTaxes;
 	}
 

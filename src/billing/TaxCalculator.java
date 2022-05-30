@@ -2,7 +2,7 @@ package billing;
 
 import java.util.List;
 
-public class TaxCalculatorClient {
+public class TaxCalculator {
 
 	public double getTax(List<Product> listOfProducts) {
 		return calculateRoundedTaxForAListOfProducts(listOfProducts);
