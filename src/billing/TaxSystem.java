@@ -1,28 +1,20 @@
 package billing;
 
+import java.util.function.Function;
+
 public enum TaxSystem {
+	TAXABLE(product -> 0.1 * product.getPrice()), 
+	NON_TAXABLE(product -> 0.),
+	IMPORTED_TAXABLE(product -> 0.15 * product.getPrice()), 
+	IMPORTED_NON_TAXABLE(product -> 0.05 * product.getPrice());
 
-	TAXABLE {},
-	NON_TAXABLE {
-		@Override
-		public Double getTax(Product product) {
-			return 0.0;
-		}
-	},
-	IMPORTED_TAXABLE {
-		@Override
-		public Double getTax(Product product) {
-			return 0.15 * product.getPrice();
-		}
-	},
-	IMPORTED_NON_TAXABLE {
-		@Override
-		public Double getTax(Product product) {
-			return 0.05 * product.getPrice();
-		}
-	};
+	private Function<Product, Double> tax;
 
-	Double getTax(Product product) {
-		return 0.1 * product.getPrice();
+	public Function<Product, Double> getTax() {
+		return tax;
+	}
+
+	private TaxSystem(Function<Product, Double> tax) {
+		this.tax = tax;
 	}
 }
